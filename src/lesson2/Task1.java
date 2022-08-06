@@ -16,13 +16,13 @@ public class Task1 {
         Scanner in = new Scanner(System.in);
         System.out.println("Возраст:");
         int age = in.nextInt();
-        if (age>=7 && age<=13){
+        if (age >= 7 && age <= 13){
             System.out.println("1 группа");
         }
-        else if (age>=14 && age<=17){
+        else if (age >= 14 && age <= 17){
                 System.out.println("2 группа");
             }
-            else if (age>=18 && age<=65){
+            else if (age >= 18 && age <= 65){
             System.out.println("3 группа");
             }
             else {
