@@ -4,50 +4,153 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Computer {
-    boolean isOn;
-    boolean processor;
-    boolean ram;
-    boolean hardDrive;
-    int countCycles;
-    public static Random random = new Random();
-    public static Scanner scanner = new Scanner(System.in);
-    public Computer(boolean processor, boolean ram, boolean hardDrive, int countCycles){
-        this.processor = processor;
+
+    private boolean isOn;
+    private boolean cpu;
+    private boolean ram;
+    private boolean hdd;
+    private int lifeCyclesCount;
+
+    public Computer() {
+    }
+
+    public Computer(boolean cpu, boolean ram, boolean hdd, int lifeCyclesCount){
+        this.cpu = cpu;
         this.ram = ram;
-        this.hardDrive = hardDrive;
-        this.countCycles = countCycles;
+        this.hdd = hdd;
+        this.lifeCyclesCount = lifeCyclesCount;
     }
 
-    @Override
-    public String toString() {
-        return "[\"" + processor + "\", \"" + ram + "\", \"" + hardDrive + "\", " + countCycles + " циклов]";
+    public void computerDescription(){
+        StringBuilder sb = new StringBuilder();
+        if (cpu){
+            sb.append("[\"есть\", ");
+        }
+        else {
+            sb.append("[\"нет\", ");
+        }
+        if (ram){
+            sb.append("\"есть\", ");
+        }
+        else {
+            sb.append("\"нет\", ");
+        }
+        if (hdd){
+            sb.append("\"есть\", ");
+        }
+        else {
+            sb.append("\"нет\", ");
+        }
+        sb.append(lifeCyclesCount + "циклов]");
+        System.out.println(sb);
     }
-    public boolean switchingOn() {
-        for (int i = this.countCycles; i >= 0; i--){
-            int num1 = random.nextInt(2);
-            System.out.print("Рандомное значение: " + num1 + ". Значение с клавиатуры: ");
-            int num2 = scanner.nextInt();
-            if (num1 == num2 && this.countCycles != 0){
-                this.isOn = true;
-                break;
-            } else this.isOn = false;
-            this.countCycles--;
+
+    public boolean switchOn(){
+        if (isOn){
+            System.out.println("Computer has been already switched on");
+            return false;
+        }
+        if (lifeCyclesCount == 0){
+            System.out.println("Computer is dead");
+            return false;
         }
 
-        return (isOn);
-    }
-    public boolean switchingOff() {
-            for (int i = this.countCycles; i >= 0; i--){
-                int num1 = random.nextInt(2);
-                System.out.print("Рандомное значение: " + num1 + ". Значение с клавиатуры: ");
-                int num2 = scanner.nextInt();
-                if (num1 == num2 && this.countCycles != 0){
-                    this.isOn = true;
-                    break;
-                } else this.isOn = false;
-                this.countCycles--;
-            }
-            return (isOn);
+        if (!hasRam() || !hasCpu() || !hasHdd()){
+            System.out.println("check your computer components");
+            return false;
         }
+
+        if (randomVsUser()){
+            isOn = true;
+            System.out.println("Lucky you. Computer will work for a while.");
+            return true;
+        }
+
+        return true;
+    }
+
+    public boolean switchOff(){
+        if (!isOn){
+            System.out.println("Computer is not on");
+            return false;
+        }
+        if (randomVsUser()){
+            isOn = false;
+            lifeCyclesCount--;
+            System.out.println("Computer has been switched off");
+            return true;
+        }
+
+        return true;
+    }
+
+    public boolean hasRam(){
+        if (!ram){
+            System.out.println("ram is missing");
+            return false;
+        }
+        return true;
+    }
+
+    public boolean hasCpu(){
+        if (!cpu){
+            System.out.println("cpu is missing");
+            return false;
+        }
+        return true;
+    }
+
+    public boolean hasHdd(){
+        if (!hdd){
+            System.out.println("hdd is missing");
+            return false;
+        }
+        return true;
+    }
+
+    public boolean randomVsUser(){
+        Random random = new Random();
+        Scanner scanner = new Scanner(System.in);
+
+        if (random.nextInt(2) != scanner.nextInt()){
+            lifeCyclesCount = 0;
+            System.out.println("KABOOM!!!");
+            System.out.println("Computer is dead");
+            return false;
+        }
+
+        return true;
+    }
+
+    public boolean isCpu() {
+        return cpu;
+    }
+
+    public void setCpu(boolean cpu) {
+        this.cpu = cpu;
+    }
+
+    public boolean isRam() {
+        return ram;
+    }
+
+    public void setRam(boolean ram) {
+        this.ram = ram;
+    }
+
+    public boolean isHdd() {
+        return hdd;
+    }
+
+    public void setHdd(boolean hdd) {
+        this.hdd = hdd;
+    }
+
+    public int getLifeCyclesCount() {
+        return lifeCyclesCount;
+    }
+
+    public void setLifeCyclesCount(int lifeCyclesCount) {
+        this.lifeCyclesCount = lifeCyclesCount;
+    }
 }
-
