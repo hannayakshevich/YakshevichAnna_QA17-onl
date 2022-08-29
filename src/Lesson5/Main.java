@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
 Создать класс компьютер.
 Поля:
@@ -17,6 +18,8 @@ isOn boolean
 	- при превышении лимита ресурса комп сгорает
  */
 
+=======
+>>>>>>> origin/Lesson5
 package Lesson5;
 
 public class Main {
