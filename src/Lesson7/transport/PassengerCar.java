@@ -24,16 +24,15 @@ public class PassengerCar extends Ground{
         System.out.print("Введите время: ");
         double time = scanner.nextInt();
         double kilometrage = getMaxSpeed() * time;
-        double literFuel = (getFuelConsumption() * kilometrage)/100;
+        double literFuel = litersFuel(kilometrage);
         System.out.println("За время " + time + " ч, автомобиль " + getBrand() + " двигаясь с максимальной скоростью "
                + getMaxSpeed() + " км/ч проедет " + kilometrage + " км и израсходует " + literFuel + " литров топлива.");
         return kilometrage;
     }
 
-   // public double litersFuel(){
-   //      double literFuel = getFuelConsumption() * countKm()/100;
-   //      return literFuel;
-    //}
+    private double litersFuel(double kilometrage){
+        return (getFuelConsumption() * kilometrage)/100;
+    }
 
     @Override
     public double power(){
